@@ -7,6 +7,14 @@ runs:
     - name: "Instaning coding Standards"
       shell: bash
       run: ${{ github.action_path }}/commands/install.bash
+    - name: Get Changed Files
+      id: get_changed_files
+      run: |
+        echo "::set-output name=files::$(git diff --name-only HEAD^ HEAD)"
+    - name: Limit files in pull request
+      shell: bash
+      id: pr-files
+      run: echo "files=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)" >> $GITHUB_OUTPUT
     - name: Starting analysis
       shell: bash
-      run: phpcs  --standard=EcgM2,Magento2,PSR2  ${{ github.workspace }}
+      run: phpcs  --standard=EcgM2,Magento2,PSR2  ${{ github.event_name == 'pull_request' && steps.pr-files.outputs.files || steps.get_changed_files.outputs.files }}
