@@ -6,7 +6,9 @@ runs:
   steps: 
     - name: "Instaning coding Standards"
       shell: bash
-      run: ${{ github.action_path }}/commands/install.bash
+      run: |
+        sudo chmod +X ${{ github.action_path }}/commands/install.bash
+        ${{ github.action_path }}/commands/install.bash
     - name: Get Changed Files
       shell: bash
       id: get_changed_files
