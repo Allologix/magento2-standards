@@ -20,4 +20,4 @@ runs:
       run: echo "files=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)" >> $GITHUB_OUTPUT
     - name: Starting analysis
       shell: bash
-      run: phpcs  --standard=EcgM2,Magento2,PSR2  ${{ github.event_name == 'pull_request' && steps.pr-files.outputs.files || steps.get_changed_files.outputs.files  }}
+      run: phpcs  --standard=EcgM2,Magento2,PSR2  --runtime-set ignore_errors_on_exit=0  --runtime-set ignore_warnings_on_exit= 0${{ github.event_name == 'pull_request' && steps.pr-files.outputs.files || steps.get_changed_files.outputs.files  }}
