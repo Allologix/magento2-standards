@@ -7,8 +7,8 @@ runs:
     - name: "Instaning coding Standards"
       shell: bash
       run: |
-        sudo chmod +X ${{ github.action_path }}/commands/install.bash
-        ${{ github.action_path }}/commands/install.bash
+        composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
+        composer global require --no-interaction magento/magento-coding-standard magento-ecg/coding-standard
     - name: Get Changed Files
       shell: bash
       id: get_changed_files
