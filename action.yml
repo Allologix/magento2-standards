@@ -9,4 +9,4 @@ runs:
       run: ${{ github.action_path }}/commands/install.bash
     - name: Starting analysis
       shell: bash
-      run: phpcs  --standard=EcgM2,Magento2,PSR2  ${{ steps.files.outputs.all }}
+      run: phpcs  --standard=EcgM2,Magento2,PSR2  ${{ github.workspace }}
