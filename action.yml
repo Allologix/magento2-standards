@@ -6,7 +6,7 @@ runs:
   steps: 
     - name: "Instaning coding Standards"
       shell: bash
-      run: ${{ github.action_path }}/command/install.bash
+      run: ${{ github.action_path }}/commands/install.bash
     - name: Starting analysis
       shell: bash
       run: phpcs  --standard=EcgM2,Magento2,PSR2 ${{ steps.get_changed_files.outputs.files }}
