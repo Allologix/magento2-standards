@@ -1,0 +1,8 @@
+name: "Magento 2 coding standard analysis with PHP_CodeSniffer"
+author: "Allologix"
+description: "Performs static code analysis with PHP_CodeSniffer and Magento 2 coding standard by default"
+runs:
+  using: "composite"
+  steps: 
+    - name: "Instaning coding Standards"
+      run: "composer install "
