@@ -5,4 +5,8 @@ runs:
   using: "composite"
   steps: 
     - name: "Instaning coding Standards"
-      run: "composer install "
+      shell: bash
+      run: ${{ github.action_path }}/command/install.bash
+    - name: Starting analysis
+      shell: bash
+      run: phpcs  --standard=EcgM2,Magento2,PSR2 ${{ steps.get_changed_files.outputs.files }}
