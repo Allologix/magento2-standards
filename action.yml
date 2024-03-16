@@ -9,6 +9,7 @@ runs:
       run: |
         composer global config --no-plugins allow-plugins.dealerdirect/phpcodesniffer-composer-installer true
         composer global require --no-interaction magento/magento-coding-standard magento-ecg/coding-standard
+        composer global require staabm/annotate-pull-request-from-checkstyle --dev
     - name: Get Changed Files
       shell: bash
       id: get_changed_files
@@ -20,4 +21,4 @@ runs:
       run: echo "files=$(git diff --name-only --diff-filter=ACMRT ${{ github.event.pull_request.base.sha }} ${{ github.sha }} | xargs)" >> $GITHUB_OUTPUT
     - name: Starting analysis
       shell: bash
-      run: phpcs  --standard=EcgM2,Magento2,PSR2  --runtime-set ignore_errors_on_exit true  --runtime-set ignore_warnings_on_exit true ${{ github.event_name == 'pull_request' && steps.pr-files.outputs.files || steps.get_changed_files.outputs.files  }}
+      run: phpcs  --standard=EcgM2,Magento2,PSR2   --report=checkstyle ${{ github.event_name == 'pull_request' && steps.pr-files.outputs.files || steps.get_changed_files.outputs.files  }} | cs2pr
